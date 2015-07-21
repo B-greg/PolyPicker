@@ -28,6 +28,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v13:21.0.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
+    compile project(':camera')
 }
 
 /***
@@ -41,8 +42,6 @@ repositories {
     }
 }
 
-dependencies {
+/*dependencies {
     compile 'com.commonsware.cwac:camera:0.6.10'
-}
-
-apply from: '../maven_push.gradle'
+}*/

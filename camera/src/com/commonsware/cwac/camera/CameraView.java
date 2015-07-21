@@ -32,6 +32,8 @@ import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import java.io.IOException;
 import com.commonsware.cwac.camera.CameraHost.FailureReason;
 
@@ -530,9 +532,14 @@ public class CameraView extends ViewGroup implements AutoFocusCallback {
   }
 
   private void startPreview() {
-    camera.startPreview();
-    inPreview=true;
-    getHost().autoFocusAvailable();
+    try {
+      camera.startPreview();
+      inPreview=true;
+      getHost().autoFocusAvailable();
+    }catch (RuntimeException e){
+      Toast.makeText(getContext(), "Couldn't Start camera", Toast.LENGTH_SHORT).show();
+    }
+
   }
 
   private void stopPreview() {
