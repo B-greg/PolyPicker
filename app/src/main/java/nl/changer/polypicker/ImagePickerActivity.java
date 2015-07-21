@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.commonsware.cwac.camera.CameraConfig;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,6 +51,7 @@ public class ImagePickerActivity extends ActionBarActivity {
 
     // initialize with default config.
     private static Config mConfig = new Config.Builder().build();
+    private static CameraConfig mCameraConfig;
 
     public static void setConfig(Config config) {
 
@@ -57,6 +60,10 @@ public class ImagePickerActivity extends ActionBarActivity {
         }
 
         mConfig = config;
+    }
+
+    public static void setCameraConfig(CameraConfig cameraConfig){
+        mCameraConfig = cameraConfig;
     }
 
     public static Config getConfig() {

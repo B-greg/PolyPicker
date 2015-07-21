@@ -113,6 +113,7 @@ public class CwacCameraFragment extends CameraFragment {
             if (mTakePictureBtn.isEnabled()) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    mTakePictureBtn.setEnabled(false);
                     autoFocus();
                     // calling above method will lead to callback
                     // onAutoFocus()
@@ -168,7 +169,6 @@ public class CwacCameraFragment extends CameraFragment {
         @Override
         public void saveImage(PictureTransaction xact, Bitmap bitmap) {
             String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, getPhotoFilename(), null);
-
             if(path == null) {
                 final Activity activity = getActivity();
 

@@ -34,6 +34,7 @@ public class ImageCleanupTask extends Thread {
   private PictureTransaction xact=null;
   private boolean applyMatrix=true;
 
+
   ImageCleanupTask(Context ctxt, byte[] data, int cameraId,
                    PictureTransaction xact) {
     this.data=data;
@@ -117,18 +118,30 @@ public class ImageCleanupTask extends Thread {
       if (matrix != null) {
         Bitmap original=
             BitmapFactory.decodeByteArray(data, 0, data.length);
+        Bitmap scaled=
+                Bitmap.createScaledBitmap(original, getScaledWidth(original.getWidth()),
+                        getScaledHeight(original.getHeight()), true);
+        original.recycle();
 
         cleaned=
-            Bitmap.createBitmap(original, 0, 0, original.getWidth(),
-                                original.getHeight(), matrix, true);
-        original.recycle();
+            Bitmap.createBitmap(scaled, 0, 0, scaled.getWidth(),
+                    scaled.getHeight(), matrix, true);
+        scaled.recycle();
+
+
       }
     }
 
     if (xact.needBitmap) {
       if (cleaned == null) {
-        cleaned=BitmapFactory.decodeByteArray(data, 0, data.length);
+        Bitmap original=
+                BitmapFactory.decodeByteArray(data, 0, data.length);
+        cleaned=
+                Bitmap.createScaledBitmap(original, getScaledWidth(original.getWidth()),
+                        getScaledHeight(original.getHeight()), true);
+        original.recycle();
       }
+
 
       xact.host.saveImage(xact, cleaned);
     }
@@ -212,4 +225,21 @@ public class ImageCleanupTask extends Thread {
 
     return(memoryClass * 1048576); // MB * bytes in MB
   }
+
+  private int getScaledWidth(int originalWidth){
+    if(CameraConfig.getInstance()==null || CameraConfig.getInstance().getMaxWidth()==0 || originalWidth <= CameraConfig.getInstance().getMaxWidth()){
+      return originalWidth;
+    }else{
+       return CameraConfig.getInstance().getMaxWidth();
+    }
+  }
+
+  private int getScaledHeight(int originalHeight){
+    if(CameraConfig.getInstance()==null || CameraConfig.getInstance().getMaxHeight()==0 ||  originalHeight <= CameraConfig.getInstance().getMaxHeight()){
+      return originalHeight;
+    }else{
+      return CameraConfig.getInstance().getMaxHeight();
+    }
+  }
+
 }
