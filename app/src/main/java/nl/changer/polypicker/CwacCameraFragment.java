@@ -145,6 +145,7 @@ public class CwacCameraFragment extends CameraFragment {
         super.takePicture(pictureTransaction);
     }
 
+
     private class DemoCameraHost extends SimpleCameraHost implements Camera.FaceDetectionListener {
         boolean supportsFaces = false;
 
@@ -158,7 +159,7 @@ public class CwacCameraFragment extends CameraFragment {
                 return (false);
             }
 
-            return getArguments().getBoolean(KEY_USE_FFC);
+           return getArguments().getBoolean(KEY_USE_FFC);
         }
 
         @Override

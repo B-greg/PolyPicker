@@ -141,7 +141,7 @@ public class ImagePickerActivity extends ActionBarActivity {
         mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(mConfig.getTabSelectionIndicatorColor()));
         mSlidingTabText.setCustomTabView(R.layout.tab_view_text, R.id.tab_icon);
         mSlidingTabText.setTabStripColor(mConfig.getTabBackgroundColor());
-        mViewPager.setAdapter(new PagerAdapter2Fragments(getFragmentManager()));
+        mViewPager.setAdapter(new PagerAdapter2Fragments(getSupportFragmentManager()));
         mSlidingTabText.setTabTitles(getResources().getStringArray(R.array.tab_titles));
         mSlidingTabText.setViewPager(mViewPager);
     }
